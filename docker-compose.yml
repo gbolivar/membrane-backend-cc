@@ -1,0 +1,39 @@
+version: "3.7"
+services:
+  challenge-proxy:
+    build:
+      context: .docker/reverse-proxy
+      dockerfile: Dockerfile
+    container_name: challenge-proxy
+    hostname: challenge-proxy
+    depends_on:
+      - challenge-api
+    ports:
+      - "8000:80"
+    restart: always
+    networks:
+      - challenge-network
+
+  challenge-api:
+    build:
+      context: ./challenge-api
+      dockerfile: Dockerfile
+    container_name: challenge-api
+    hostname: challenge-api
+    env_file:
+      - ./challenge-api/.env
+    ports:
+      - "3500"
+    volumes:
+      - ./challenge-api:/app
+      - node_modules:/app/node_modules
+    command: npm start
+    networks:
+      - challenge-network
+
+networks:
+  challenge-network:
+        driver: bridge
+
+volumes:
+  node_modules:
