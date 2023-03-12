@@ -1,3 +1,4 @@
+'use strict';
 // params need to be in order 
 import { log } from '../../infrastructure/utils/index.js'
 
