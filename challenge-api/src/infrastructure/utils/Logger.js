@@ -1,4 +1,6 @@
 import log4js from "log4js";
+
+import { logConfig } from "../../infrastructure/config/index.js";
 /**
  * Author Gregorio Bolivar <elalconxvii@gmail.com>
  * Version 1.0.1
@@ -9,12 +11,13 @@ import log4js from "log4js";
 
 export const log = {
     uuid(msg) {
-
         if (typeof process.env.UUID !== 'undefined') {
-            return this.getModule() + '  ' + process.env.UUID + ' | ' + msg
+            msg = this.getModule() + '  ' + process.env.UUID + ' | ' + msg
         } else {
-            return this.getModule() + '  -- | ' + msg
+            msg =  this.getModule() + ' | ' + msg
         }
+        console.info(msg)
+        return msg;
 
     },
     load(module) {
@@ -30,7 +33,8 @@ export const log = {
         const date = new Date();
         const today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
         const hour = '-' + ('0' + date.getHours()).slice(-2);
-        const fileLog = process.env.LOG4J_PATH_LOG + today + '/' + today + hour + '_' + process.env.LOG4J_FILE_LOG
+        const fileLog = logConfig.config.filePath + today + '/' + today + hour + '_' + logConfig.config.fileLogs
+        console.log(fileLog);
         log4js.configure({
             appenders: { cheese: { type: "file", filename: fileLog } },
             categories: { default: { appenders: ["cheese"], level: "error" } }

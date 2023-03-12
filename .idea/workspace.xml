@@ -4,7 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c167917-f4d7-4dc9-a208-5a9ecd4362ee" name="Changes" comment="" />
+    <list default="true" id="1f2b849a-6232-4c33-a8b9-9a6b04eec765" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/26012022-methodo-api_integration_auth-1.0.0.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/env-example" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/env-example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/domain/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/infrastructure/utils/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/src/infrastructure/utils/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/webService/controllers/ChallengeController.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/src/webService/controllers/ChallengeController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/webService/controllers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/src/webService/controllers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/webService/middlewares/ErrorHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/src/webService/middlewares/ErrorHandler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/webService/middlewares/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/src/webService/middlewares/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/webService/router/ChallengeRouter.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/src/webService/router/ChallengeRouter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/webService/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/src/webService/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/challenge-api/src/webService/validator/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/challenge-api/src/webService/validator/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,69 +35,39 @@
     <execution />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/challenge-api" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/challenge-api/package.json" />
-  </component>
-  <component name="ProjectId" id="2MlIoTMWWfZK9hDL2uIk8h4JT0b" />
+  <component name="ProjectId" id="2MpSYDu00Io0NyBcP6RvKjC9i4c" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/var/ironsofts/code/js/membrane-backend-cc/challenge-api/src/application",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/challenge-api/src/application" />
-      <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/challenge-api/src/domain" />
-      <recent name="$PROJECT_DIR$/challenge-api" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/challenge-api/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="npm.start" />
-      </list>
-    </recent_temporary>
-  </component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5c167917-f4d7-4dc9-a208-5a9ecd4362ee" name="Changes" comment="" />
-      <created>1678335916217</created>
+      <changelist id="1f2b849a-6232-4c33-a8b9-9a6b04eec765" name="Changes" comment="" />
+      <created>1678463079886</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1678335916217</updated>
-      <workItem from="1678335917307" duration="9469000" />
+      <updated>1678463079886</updated>
+      <workItem from="1678463082471" duration="599000" />
+      <workItem from="1678511267327" duration="1000" />
+      <workItem from="1678512844895" duration="1000" />
     </task>
     <servers />
   </component>
