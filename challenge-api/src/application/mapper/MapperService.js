@@ -1,5 +1,5 @@
 export const MapperService = {
-    getService(marketSymbol, depth) {
+    async getService(marketSymbol, depth) {
        return ['orderbook_'+marketSymbol+'_'+depth];
     }
 
