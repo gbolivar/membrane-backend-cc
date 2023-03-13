@@ -11,3 +11,9 @@ BITTREX_WS_URI='<url - ws>'
 BITTREX_WS_VER=["c3"]
 BITTREX_WS_PAIR=["BTC-USD","ETH-USD"]
 BITTREX_WS_OPERATION=["buy", "sell"]
+
+# REDIS
+RD_HOST=localhost
+RD_PORT=6379
+RD_PASSWORD=empy
+RD_TTL=30 #seconds

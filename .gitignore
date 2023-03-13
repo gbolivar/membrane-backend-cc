@@ -3,3 +3,4 @@ challenge-api/log/*
 challenge-api/.env
 challenge-api/.idea
 .idea
+log/*
