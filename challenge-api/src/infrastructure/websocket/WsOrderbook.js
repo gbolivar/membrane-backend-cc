@@ -1,18 +1,21 @@
-import { log, eventEmitter } from '../utils/index.js';
-import { bittrexConfig } from '../config/index.js';
+import { log } from '../utils/index.js';
+import { bittrexConfig, redisConfig } from '../config/index.js';
 import { client as signalR } from 'signalr-client';
 import { inflateRaw } from 'zlib';
 import { ClientWsToConnectException, ClientWsToSubscribeException, ClientWsToUnsubscribeException } from '../../application/exception/index.js';
+import { redis } from '../store/redis/index.js';
 let wsClient;
-let buffe;
 log.load('WsOrderbook');
+let serviceTmp;
+
 
 let resolveInvocationPromise = () => { };
 export const WsOrderbook = {
-  async main(service, Tbuffe) {
+  async main(service) {
+    serviceTmp = service;
     wsClient = await WsOrderbook.connect();
-    buffe =  Tbuffe;
     await WsOrderbook.subscribe(wsClient, service);
+    WsOrderbook.close(wsClient, service);
   },
   
   async connect() {
@@ -46,26 +49,25 @@ export const WsOrderbook = {
     try {
       await WsOrderbook.invoke(client, 'subscribe', channel);  
       log.info('Subscription to "' + channel + '" successful');
-      const unsuscribeT = WsOrderbook.unsubscribe.bind({ client: client, channel: channel });
-      eventEmitter.invoke().once('FinishedProcessing', unsuscribeT);
     }catch(err){
         log.error('Subscription to "' + channel + '" failed: ' + err);
       throw new ClientWsToSubscribeException(err);
     }
   },
   
-  async unsubscribe(){
+  async unsubscribe(client, channel){
     try {
-      await WsOrderbook.invoke(this.client, 'Unsubscribe', this.channel); 
-      WsOrderbook.Offline(this.client);
-      log.info('Unsubscription to "' + this.channel + '" successful');
+      await WsOrderbook.invoke(client, 'Unsubscribe', channel); 
+      WsOrderbook.Offline(client);
+      log.info('Unsubscription to "' + channel + '" successful');
     }catch(err){
-        log.error('Unsubscription to "' + this.channel + '" failed: ' + err);
+        log.error('Unsubscription to "' + channel + '" failed: ' + err);
       throw new ClientWsToUnsubscribeException(err);
     }
   },
   
   async invoke(client, method, ...args) {
+    log.info('invoke:'+method);
     return new Promise((resolve, reject) => {
       resolveInvocationPromise = resolve
       client.call(bittrexConfig.getVersion()[0], method, ...args)
@@ -86,14 +88,27 @@ export const WsOrderbook = {
             const raw = new Buffer.from(b64, 'base64');
             inflateRaw(raw, function (err, inflated) {
               if (!err) {
-                const json = JSON.parse(inflated.toString('utf8'));
-                buffe.push(json);
-                eventEmitter.invoke().emit('newMessage');
+                if (inflated.toString('utf8') != undefined) {
+                  log.debug('WsOrderbook:'+JSON.stringify(inflated.toString('utf8'))) 
+                  WsOrderbook.cache(inflated.toString('utf8'));
+                }
               }
             });
+           
           }
         }
       });
     }
+  },
+  async cache(dataJson) { 
+    (await redis.main()).set(serviceTmp, dataJson);
+    (await redis.main()).expire(serviceTmp, redisConfig.expire.expireOrderbook);
+  },
+  async close(client, channel) {
+   return new Promise((resolve, reject) => {
+      setTimeout(()=>{
+        WsOrderbook.unsubscribe(client, channel)
+      }, 1000)
+    })
   }
 }

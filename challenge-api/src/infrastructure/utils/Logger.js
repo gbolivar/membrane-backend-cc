@@ -16,7 +16,6 @@ export const log = {
         } else {
             msg =  this.getModule() + ' | ' + msg
         }
-        console.info(msg)
         return msg;
 
     },
@@ -34,7 +33,6 @@ export const log = {
         const today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
         const hour = '-' + ('0' + date.getHours()).slice(-2);
         const fileLog = logConfig.config.filePath + today + '/' + today + hour + '_' + logConfig.config.fileLogs
-        console.log(fileLog);
         log4js.configure({
             appenders: { cheese: { type: "file", filename: fileLog } },
             categories: { default: { appenders: ["cheese"], level: "error" } }
