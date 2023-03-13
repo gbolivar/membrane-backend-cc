@@ -14,5 +14,12 @@ export const OrderbookController = {
         } catch (error) {
             next(error);
         }
+    },
+    async getEffectivePrice(req, res, next ) {
+        try {
+            responseSuccess(responseCode.OK.code, res, "Under construction")
+        } catch (error) {
+            next(error);
+        }
     }
 }
