@@ -6,7 +6,6 @@ export const ChallengeController = {
     async getHome(req, res, next) {
         try {
             const msg = "Welcome Membrane Challenge";
-            console.log(req.params.pair)
             responseSuccess(responseCode.OK.code, res, msg)
         } catch (error) {
             next(error);

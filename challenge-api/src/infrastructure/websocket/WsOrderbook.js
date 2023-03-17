@@ -8,11 +8,15 @@ let wsClient;
 log.load('WsOrderbook');
 let serviceTmp;
 
+let matriz = [];
+let nlengthLocal = 0;
+
 
 let resolveInvocationPromise = () => { };
 export const WsOrderbook = {
-  async main(service) {
+  async main(service, nlength) {
     serviceTmp = service;
+    nlengthLocal = nlength
     wsClient = await WsOrderbook.connect();
     await WsOrderbook.subscribe(wsClient, service);
     WsOrderbook.close(wsClient, service);
@@ -90,7 +94,7 @@ export const WsOrderbook = {
               if (!err) {
                 if (inflated.toString('utf8') != undefined) {
                   log.debug('WsOrderbook:'+JSON.stringify(inflated.toString('utf8'))) 
-                  WsOrderbook.cache(inflated.toString('utf8'));
+                  matriz.push(inflated.toString('utf8'))
                 }
               }
             });
@@ -98,9 +102,12 @@ export const WsOrderbook = {
           }
         }
       });
+      let dataJsonString = await WsOrderbook.parserJsonFn(matriz);
+      await WsOrderbook.cache(dataJsonString);//"["+matriz.toString('utf8')+"]");
     }
   },
   async cache(dataJson) { 
+    (await redis.main()).del(serviceTmp);
     (await redis.main()).set(serviceTmp, dataJson);
     (await redis.main()).expire(serviceTmp, redisConfig.expire.expireOrderbook);
   },
@@ -110,5 +117,14 @@ export const WsOrderbook = {
         WsOrderbook.unsubscribe(client, channel)
       }, 1000)
     })
+  },
+  async parserJsonFn(matriz){
+    let dataJson = [];
+    for(let i=0;i<nlengthLocal; i++){
+      if (matriz[i]) {
+        dataJson.push(matriz[i]);
+      }
+    }
+    return '['+dataJson.toString('utf8')+']';
   }
 }
