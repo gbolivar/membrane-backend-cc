@@ -1,4 +1,4 @@
-
+'use strict';
 export const bittrexConfig = {
     getPair() {
         return JSON.parse(process.env.BITTREX_WS_PAIR)
