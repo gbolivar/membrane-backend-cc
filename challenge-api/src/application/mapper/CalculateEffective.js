@@ -1,5 +1,6 @@
 'use strict';
 
+import { log } from '../../infrastructure/utils/index.js';
 
 
 let priceLimitLocal = -1;
@@ -13,14 +14,22 @@ let currentPriceLimit = null;
 
 export const CalculateEffective = {
     async main(currentLocal, currentPriceLimitParam, amountLocal){
+        price = 0
         priceLimitLocal = currentPriceLimitParam
         currentAmount = amountLocal;
         currentPriceLimit = currentPriceLimitParam;
 
+        log.info('Start CalculateEffective')
+        log.info(currentLocal)
+        log.info(currentPriceLimitParam)
+        log.info(amountLocal)
+        log.info('End CalculateEffective')
+
+
 
         for(let i=0; i<currentLocal.length && currentAmount>0 && CalculateEffective.validatePriceLimit(currentPriceLimit); i++){
-            console.info('currentLocal[i]')
-            console.info(currentLocal[i])
+            log.info('currentLocal[i]')
+            log.info(currentLocal[i])
            await CalculateEffective.processEvents(currentLocal[i]);
         }
         return (priceLimitLocal != -1)? {"maximumOrde" : maxOrderSize} : {"expeditedPrice" : price}  
@@ -28,8 +37,10 @@ export const CalculateEffective = {
     async processEvents(dataJson){
         quantityLocal = parseFloat(dataJson.quantity)
         rateLocal = parseFloat(dataJson.rate)
+        log.info('processEvents')
+        log.info(dataJson)
 
-        console.info(quantityLocal+'<=L1=>'+rateLocal)
+        log.info(quantityLocal+'<=L1=>'+rateLocal)
 
         if(priceLimitLocal !== -1){
             if(currentPriceLimit > (quantityLocal * rateLocal)){
@@ -52,7 +63,7 @@ export const CalculateEffective = {
             price += rateLocal * currentAmount;
             currentAmount = 0; 
         }
-        console.info('price:'+price);    
+        log.info('price:'+price);    
     },
     validatePriceLimit(priceLimitLocalLimit){
         return (priceLimitLocal == -1)? true : (priceLimitLocalLimit > 0)

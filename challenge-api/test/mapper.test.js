@@ -13,7 +13,6 @@ describe('Mapper', function () {
   });
   describe('#DataOrderbookTip(data)', async function () {
     const datTip = await DataOrderbookTip.processTip(MainFixtureTest.dataOrderbookTip());
-    console.log(datTip.bidDelta.quantity)
     it('Check askDelta quantity ', () => {
       const respDelta = MainFixtureTest.dataOrderbookTipValid();
       assert.equal(datTip.askDelta.quantity, respDelta.quantity);
