@@ -1,20 +1,11 @@
-FROM node:18.9.1-alpine
-
-WORKDIR /app
-
-# package local
+FROM node:19-alpine
 RUN mkdir -p /app/node_modules && chown -R node:node /app
-
-# package global
-ENV NODE_DATA_DIR /usr/local/lib/node_modules
-RUN mkdir -p "$NODE_DATA_DIR" && chown -R node:node "$NODE_DATA_DIR" && chmod 750 "$NODE_DATA_DIR"
-
+WORKDIR /app
 
 COPY ./package.json .
 
-#USER node
-RUN npm install -g signalr-client
-RUN npm install
+USER node
+RUN npm i
 COPY --chown=node:node . .
 
 EXPOSE 3500
