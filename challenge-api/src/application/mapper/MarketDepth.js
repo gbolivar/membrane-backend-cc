@@ -7,8 +7,6 @@ import { CalculateEffective } from './index.js';
 let amountLocal = 0;
 let serviceLocal = 0;
 let priceLimitLocal = -1;
-let dataAskDeltas = [];
-let dataBidDeltas = [];
 
 
 function sortByRateAskLocal (a, b) {return a.rate - b.rate}
