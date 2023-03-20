@@ -20,6 +20,8 @@ services:
       dockerfile: Dockerfile
     container_name: challenge-api
     hostname: challenge-api
+    depends_on:
+      - challenge-cache
     env_file:
       - ./challenge-api/.env
     ports:
@@ -27,7 +29,24 @@ services:
     volumes:
       - ./challenge-api:/app
       - node_modules:/app/node_modules
-    command: npm start
+    #command: npm start
+    command: tail -F anything
+    networks:
+      - challenge-network
+
+
+  challenge-cache:
+    image: docker.io/bitnami/redis:7.0
+    container_name: challenge-cache
+    hostname: challenge-cache
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6500:6379'
+    volumes:
+      - 'redis_data:/bitnami/redis/data'
     networks:
       - challenge-network
 
@@ -37,3 +56,5 @@ networks:
 
 volumes:
   node_modules:
+  redis_data:
+    driver: local

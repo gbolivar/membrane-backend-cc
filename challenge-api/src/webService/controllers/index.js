@@ -4,3 +4,4 @@
  *
  */
 export * from './ChallengeController.js';
+export * from './OrderbookController.js';
