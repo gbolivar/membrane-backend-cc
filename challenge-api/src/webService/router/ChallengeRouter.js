@@ -1,3 +1,4 @@
+'use strict';
 import { ChallengeController } from '../controllers/index.js';
 export const ChallengeRouter = (router) => {
     router.get("/", ChallengeController.getHome);
