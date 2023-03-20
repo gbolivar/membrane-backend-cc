@@ -8,13 +8,14 @@ let quantityLocal = 0;
 let price = 0;
 let maxOrderSize = 0;
 let currentAmount = 1;
+let currentPriceLimit = null;
 
 
 export const CalculateEffective = {
     async main(currentLocal, currentPriceLimitParam, amountLocal){
         priceLimitLocal = currentPriceLimitParam
         currentAmount = amountLocal;
-        let currentPriceLimit = currentPriceLimitParam;
+        currentPriceLimit = currentPriceLimitParam;
 
 
         for(let i=0; i<currentLocal.length && currentAmount>0 && CalculateEffective.validatePriceLimit(currentPriceLimit); i++){
