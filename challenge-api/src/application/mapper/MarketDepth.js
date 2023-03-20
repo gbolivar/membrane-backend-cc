@@ -6,7 +6,7 @@ import { CalculateEffective } from './index.js';
 
 let amountLocal = 0;
 let serviceLocal = 0;
-let priceLimitLocal = 1;
+let priceLimitLocal = -1;
 let dataAskDeltas = [];
 let dataBidDeltas = [];
 
@@ -17,7 +17,7 @@ function sortByRateBidLocal (a, b) {return b.rate - a.rate}
 
 log.load('MarketDepth');
 export const MarketDepth = {
-    async main(items, service, action, amount, priceLimit = 0){
+    async main(items, service, action, amount, priceLimit){
         amountLocal = amount;
         serviceLocal = service;
         if (priceLimit) {
@@ -35,13 +35,21 @@ export const MarketDepth = {
     },
     async processBuy(rows) {
         log.info('MarketDepth->processBuy:'+rows.toString());
-        const askDeltasRowsLocal = await MarketDepth.changeArrayToDelta(rows, 'askDeltas')
-        return await MarketDepth.localProcess(askDeltasRowsLocal, dataAskDeltas, sortByRateAskLocal);
+        const askDeltasRowsLocal = await MarketDepth.changeArrayToDelta(rows, 'askDeltas');
+        const askDeltasRowsLocalFilter = await MarketDepth.filterArrayToDelta(askDeltasRowsLocal, sortByRateAskLocal);
+        console.debug('Start askDeltas:');
+        console.debug(askDeltasRowsLocalFilter);
+        console.debug('End askDeltas:');
+        return await CalculateEffective.main(askDeltasRowsLocalFilter, priceLimitLocal, amountLocal);
     },
     async processSell(rows){
         log.info('MarketDepth->processBuy:'+rows.toString());
         const bidDeltasRowsLocal = await MarketDepth.changeArrayToDelta(rows, 'bidDeltas');
-        return await MarketDepth.localProcess(bidDeltasRowsLocal, dataBidDeltas, sortByRateBidLocal);
+        const bidDeltasRowsLocalFilter = await MarketDepth.filterArrayToDelta(bidDeltasRowsLocal, sortByRateBidLocal);
+        console.debug('Start bidDeltas:');
+        console.debug(bidDeltasRowsLocalFilter);
+        console.debug('End bidDeltas:');
+        return await CalculateEffective.main(bidDeltasRowsLocalFilter, priceLimitLocal, amountLocal);
     },
     async changeArrayToDelta(rows, idx){
         let dataTemp = []
@@ -52,24 +60,13 @@ export const MarketDepth = {
         });
         return dataTemp;
     },
-    async localProcess(data, current, orderByRateLocal){
-        let caseData = true; 
-
-        for(let i=0; i<data.length; i++){
-            for(const element of current){
-              if(data[i].rate === element.rate){
-                    element.quantity = data[i].quantity
-                    caseData = false;
-              } 
-            }
-            if(caseData){
-                current.push(data[i])
-            }
-            caseData = true
-        }
-
-        current = current.filter(item => item.quantity !== '0').sort(orderByRateLocal);
-  
-        return await CalculateEffective.main(current, priceLimitLocal, amountLocal);
+    async filterArrayToDelta(rows, orderByRateLocal){
+        const dataTemp = []
+        const rowsFilter = rows.filter(data => data.length>0)
+        rowsFilter.forEach(data => {
+            let tmp = data.filter(item => (item.quantity !== '0'))
+            dataTemp.push(tmp[0])
+        });
+        return dataTemp.sort(orderByRateLocal);
     }
 }
