@@ -7,7 +7,7 @@
   "scripts": {
     "orderbook": "nodemon challenge-api/src/webService/command/clientOrderbook.js",
     "start": "nodemon app.js ",
-    "test": "jest"
+    "test": "./node_modules/.bin/mocha --debug --inspect"
   },
   "keywords": [],
   "author": "Gregorio Bolívar",
@@ -26,12 +26,8 @@
     "zlib": "^1.0.5"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.24",
-    "jest": "^27.4.5",
-    "nodemon": "~2.0.21"
-  },
-  "jest": {
-    "verbose": true,
-    "testEnvironment": "node"
+    "mocha": "^10.2.0",
+    "nodemon": "~2.0.21",
+    "chai": "^4.3.7"
   }
 }
