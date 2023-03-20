@@ -4,7 +4,7 @@ import session from 'express-session'
 import cors from 'cors';
 
 
-import { ErrorHandler} from './src/webService/middlewares/index.js';
+import { ErrorHandler } from './src/webService/middlewares/index.js';
 import router from './src/webService/router/index.js';
 
 const app = express();
