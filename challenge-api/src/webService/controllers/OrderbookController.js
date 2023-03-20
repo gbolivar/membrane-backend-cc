@@ -19,7 +19,7 @@ export const OrderbookController = {
         try {
             log.info('getEffectivePrice:strar');
             const effectivePrice = await ProcessDataOrderbookService.getEffectivePrice(req.params.pair, req.params.action, req.params.amount, req.query.priceLimit)
-            log.info('getEffectivePrice -> msg:('+JSON.stringify(effectivePrice)+')');
+            // log.info('getEffectivePrice -> msg:('+JSON.stringify(effectivePrice)+')');
             responseSuccess(responseCode.OK.code, res, effectivePrice)
         } catch (error) {
             next(error);

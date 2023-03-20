@@ -12,9 +12,10 @@ let matriz = [];
 let nlengthLocal = 0;
 
 
-let resolveInvocationPromise = () => { };
+let resolvePromiseLocal = () => { };
 export const WsOrderbook = {
   async main(service, nlength) {
+    matriz = [];
     serviceTmp = service;
     nlengthLocal = nlength
     wsClient = await WsOrderbook.connect();
@@ -73,7 +74,7 @@ export const WsOrderbook = {
   async invoke(client, method, ...args) {
     log.info('invoke:'+method);
     return new Promise((resolve, reject) => {
-      resolveInvocationPromise = resolve
+      resolvePromiseLocal = resolve
       client.call(bittrexConfig.getVersion()[0], method, ...args)
         .done(function (err) {
           if (err) { return reject(err); }
@@ -83,7 +84,7 @@ export const WsOrderbook = {
   
   async messageReceived(message) {
     const data = JSON.parse(message.utf8Data);
-    if(data['R']) resolveInvocationPromise(data.R)
+    if(data['R']) resolvePromiseLocal(data.R)
     if (data['M']) {
       data.M.forEach(function (m) {
         if (m['A']) {
@@ -103,7 +104,7 @@ export const WsOrderbook = {
         }
       });
       let dataJsonString = await WsOrderbook.parserJsonFn(matriz);
-      await WsOrderbook.cache(dataJsonString);//"["+matriz.toString('utf8')+"]");
+      await WsOrderbook.cache(dataJsonString);
     }
   },
   async cache(dataJson) { 
@@ -119,9 +120,11 @@ export const WsOrderbook = {
     })
   },
   async parserJsonFn(matriz){
+    let sum = 0;
     let dataJson = [];
     for(let i=0;i<nlengthLocal; i++){
       if (matriz[i]) {
+        sum = sum +1;
         dataJson.push(matriz[i]);
       }
     }
