@@ -29,8 +29,8 @@ services:
     volumes:
       - ./challenge-api:/app
       - node_modules:/app/node_modules
-    #command: npm start
-    command: tail -F anything
+    command: npm start
+    #command: tail -F anything
     networks:
       - challenge-network
 
